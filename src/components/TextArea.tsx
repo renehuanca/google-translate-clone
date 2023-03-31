@@ -33,9 +33,9 @@ export const TextArea = ({ type, loading, value, onChange }: Props) => {
       disabled={type === SectionType.To && loading === true}
       placeholder={getPlaceholder(type, loading)}
       autoFocus={type === SectionType.From}
-      onChange={(evet) => handleChange}
+      onChange={handleChange}
+      value={value}
     >
-      {value}
     </textarea>
   )
 }

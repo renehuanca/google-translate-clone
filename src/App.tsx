@@ -4,6 +4,8 @@ import { ChangeIcon } from './components/Icons'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import TextArea from './components/TextArea'
+import { useEffect } from 'react'
+import { translate } from './services/translate'
 
 function App () {
   const {
@@ -19,6 +21,15 @@ function App () {
     setResult
   } = useStore()
 
+  useEffect(() => {
+    void translate({ fromLanguage, toLanguage, text: fromText })
+      .then(result => {
+        if (result == null) return
+        setResult(result)
+        console.log(result)
+      })
+      .catch(() => setResult('Error'))
+  }, [fromText, fromLanguage, toLanguage])
   return (
     <div className='container mx-auto px-4'>
       <h1 className='text-2xl text-center my-8'>Google Translate Clone</h1>
