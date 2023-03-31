@@ -1,11 +1,12 @@
-import { AUTO_LANGUAGE } from './constants'
+import { AUTO_LANGUAGE, VOICE_FOR_LANGUAGE } from './constants'
 import { useStore } from './hooks/useStore'
-import { ChangeIcon } from './components/Icons'
+import { ChangeIcon, ClipboardIcon, SpeakerIcon } from './components/Icons'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import TextArea from './components/TextArea'
 import { useEffect } from 'react'
 import { translate } from './services/translate'
+import { useDebounce } from './hooks/useDebounce'
 
 function App () {
   const {
@@ -21,8 +22,10 @@ function App () {
     setResult
   } = useStore()
 
+  const deboundeFromText = useDebounce(fromText, 250)
+
   useEffect(() => {
-    void translate({ fromLanguage, toLanguage, text: fromText })
+    void translate({ fromLanguage, toLanguage, text: deboundeFromText })
       .then(result => {
         if (result == null) return
         setResult(result)
@@ -30,6 +33,18 @@ function App () {
       })
       .catch(() => setResult('Error'))
   }, [fromText, fromLanguage, toLanguage])
+
+  const handleClipboard = () => {
+    navigator.clipboard.writeText(result).catch(() => {})
+  }
+
+  const handleSpeak = () => {
+    const utterance = new SpeechSynthesisUtterance(result)
+    utterance.lang = VOICE_FOR_LANGUAGE[toLanguage]
+    utterance.rate = 0.9
+    speechSynthesis.speak(utterance)
+  }
+
   return (
     <div className='container mx-auto px-4'>
       <h1 className='text-2xl text-center my-8'>Google Translate Clone</h1>
@@ -61,12 +76,28 @@ function App () {
             value={toLanguage}
             onChange={setToLanguage}
           />
-          <TextArea
-            type={SectionType.To}
-            value={result}
-            onChange={setResult}
-            loading={loading}
-          />
+          <div className='relative'>
+            <TextArea
+              type={SectionType.To}
+              value={result}
+              onChange={setResult}
+              loading={loading}
+            />
+            <div className='absolute bottom-0'>
+              <button
+                className='p-2'
+                onClick={handleSpeak}
+              >
+                <SpeakerIcon />
+              </button>
+              <button
+                className='p-2'
+                onClick={handleClipboard}
+              >
+                <ClipboardIcon />
+              </button>
+            </div>
+         </div>
         </div>
       </div>
     </div>
