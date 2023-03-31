@@ -1,12 +1,15 @@
-import { AUTO_LANGUAGE, VOICE_FOR_LANGUAGE } from './constants'
+import { AUTO_LANGUAGE } from './constants'
 import { useStore } from './hooks/useStore'
-import { ChangeIcon, ClipboardIcon, SpeakerIcon } from './components/Icons'
+import { ChangeIcon } from './components/Icons'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './enums'
 import TextArea from './components/TextArea'
 import { useEffect } from 'react'
 import { translate } from './services/translate'
 import { useDebounce } from './hooks/useDebounce'
+import Speakerphone from './components/Speakphone'
+import Clipboard from './components/Clipboard'
+import Microphone from './components/Microphone'
 
 function App () {
   const {
@@ -34,17 +37,6 @@ function App () {
       .catch(() => setResult(''))
   }, [deboundeFromText, fromLanguage, toLanguage])
 
-  const handleClipboard = () => {
-    navigator.clipboard.writeText(result).catch(() => {})
-  }
-
-  const handleSpeak = () => {
-    const utterance = new SpeechSynthesisUtterance(result)
-    utterance.lang = VOICE_FOR_LANGUAGE[toLanguage]
-    utterance.rate = 0.9
-    speechSynthesis.speak(utterance)
-  }
-
   return (
     <div className='container mx-auto px-4'>
       <h1 className='text-2xl text-center my-8'>Google Translate Clone</h1>
@@ -55,12 +47,22 @@ function App () {
             value={fromLanguage}
             onChange={setFromLanguage}
           />
-          <TextArea
-            type={SectionType.From}
-            value={fromText}
-            onChange={setFromText}
-          />
-        </div>
+          <div className='relative'>
+            <TextArea
+              type={SectionType.From}
+              value={fromText}
+              onChange={setFromText}
+            />
+            <div className='absolute bottom-0'>
+              <Microphone onVoice={setFromText}/>
+              <Speakerphone
+                type={SectionType.From}
+                language={fromLanguage}
+                result={fromText}
+              />
+            </div>
+          </div>
+       </div>
         <button
           className={`px-4 py-1 ${fromLanguage === AUTO_LANGUAGE ? 'opacity-50' : ''}`}
           disabled={fromLanguage === AUTO_LANGUAGE}
@@ -84,18 +86,12 @@ function App () {
               loading={loading}
             />
             <div className='absolute bottom-0'>
-              <button
-                className='p-2'
-                onClick={handleSpeak}
-              >
-                <SpeakerIcon />
-              </button>
-              <button
-                className='p-2'
-                onClick={handleClipboard}
-              >
-                <ClipboardIcon />
-              </button>
+              <Speakerphone
+                type={SectionType.To}
+                language={toLanguage}
+                result={result}
+              />
+              <Clipboard result={result}/>
             </div>
          </div>
         </div>
