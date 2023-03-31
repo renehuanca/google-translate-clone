@@ -22,10 +22,10 @@ function App () {
     setResult
   } = useStore()
 
-  const deboundeFromText = useDebounce(fromText, 250)
+  const deboundeFromText = useDebounce(fromText, 500)
 
   useEffect(() => {
-    void translate({ fromLanguage, toLanguage, text: deboundeFromText })
+    translate({ fromLanguage, toLanguage, text: fromText })
       .then(result => {
         if (result == null) return
         setResult(result)
