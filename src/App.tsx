@@ -25,14 +25,14 @@ function App () {
   const deboundeFromText = useDebounce(fromText, 500)
 
   useEffect(() => {
-    translate({ fromLanguage, toLanguage, text: fromText })
+    translate({ fromLanguage, toLanguage, text: deboundeFromText })
       .then(result => {
         if (result == null) return
         setResult(result)
         console.log(result)
       })
-      .catch(() => setResult('Error'))
-  }, [fromText, fromLanguage, toLanguage])
+      .catch(() => setResult(''))
+  }, [deboundeFromText, fromLanguage, toLanguage])
 
   const handleClipboard = () => {
     navigator.clipboard.writeText(result).catch(() => {})

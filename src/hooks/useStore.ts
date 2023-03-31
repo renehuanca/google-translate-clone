@@ -15,6 +15,7 @@ function reducer (state: Translator, action: Action) {
 
   if (type === 'INTERCHANGE_LANGUAGES') {
     if (state.fromLanguage === AUTO_LANGUAGE) return state
+    if (state.fromLanguage === state.toLanguage) return state
 
     const loading = state.fromText !== ''
 
