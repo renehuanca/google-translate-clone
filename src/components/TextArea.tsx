@@ -1,5 +1,5 @@
 import { type ChangeEvent } from 'react'
-import { SectionType } from '../types.d'
+import { SectionType } from '../enums'
 
 interface Props {
   type: SectionType

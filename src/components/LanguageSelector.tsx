@@ -1,5 +1,6 @@
 import { type ChangeEvent } from 'react'
-import { SectionType, type FromLanguage, type Language } from '../types.d'
+import { SectionType } from '../enums'
+import { type FromLanguage, type Language } from '../types'
 import { AUTO_LANGUAGE, SUPPORTED_LANGUAGES } from '../constants'
 
 type Props =
