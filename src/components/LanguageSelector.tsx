@@ -14,15 +14,15 @@ const LanguageSelector = ({ onChange, type, value }: Props) => {
 
   return (
     <select
-      className='inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600 hover:bg-gray-50'
+      className='inline-flex w-full justify-center rounded-md bg-white px-6 py-6 text-sm font-bold text-indigo-500 outline-none hover:bg-gray-100'
       onChange={handleChange}
       value={value}
     >
-      {type === SectionType.From && <option value={AUTO_LANGUAGE}>Detectar Idioma</option> }
+      {type === SectionType.From && <option value={AUTO_LANGUAGE}>{'Detectar Idioma'.toLocaleUpperCase()}</option> }
 
       {Object.entries(SUPPORTED_LANGUAGES).map(([key, literal]) => (
         <option key={key} value={key}>
-          {literal}
+          {literal.toLocaleUpperCase()}
         </option>
       ))}
     </select>

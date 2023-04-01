@@ -21,7 +21,10 @@ const Microphone: React.FC<Props> = ({ onVoice }) => {
   }
 
   return (
-    <button onClick={handleVoiceInput}>
+    <button
+      className='p-4 rounded-full hover:bg-gray-200'
+      onClick={handleVoiceInput}
+    >
       <MicrophoneIcon />
     </button>
   )

@@ -8,7 +8,7 @@ interface Props {
   value: string
 }
 
-const commonClasses = 'block w-full mt-4 p-2 resize-none rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6'
+const commonClasses = 'block w-full p-6 resize-none border-0 font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 outline-none placeholder:text-gray-400 text-lg sm:text-2xl sm:leading-8'
 
 const getPlaceholder = (type: SectionType, loading?: boolean) => {
   if (type === SectionType.From) return 'Ingresar texto'
@@ -19,7 +19,7 @@ const getPlaceholder = (type: SectionType, loading?: boolean) => {
 export const TextArea = ({ type, loading, value, onChange }: Props) => {
   const classes = type === SectionType.From
     ? commonClasses
-    : `${commonClasses} bg-gray-50`
+    : `${commonClasses} bg-gray-100`
 
   const handleChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(evt.target.value)

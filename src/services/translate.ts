@@ -2,7 +2,7 @@ import { ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from '
 import { SUPPORTED_LANGUAGES } from '../constants'
 import { type FromLanguage, type Language } from '../types'
 
-const apiKey = 'sk-lSFHjyjZkQBI9ppU1k6qT3BlbkFJZ2mVvPs3CRYktQdrenJ'
+const apiKey = import.meta.env.APENAI_API_KEY
 
 const configuration = new Configuration({
   apiKey

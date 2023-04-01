@@ -1,6 +1,6 @@
 import { AUTO_LANGUAGE } from './constants'
 import { useStore } from './hooks/useStore'
-import { ChangeIcon } from './components/Icons'
+import { ChangeIcon, ChatgptIcon, GithubIcon, ReactIcon, TailwindcssIcon } from './components/Icons'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './enums'
 import TextArea from './components/TextArea'
@@ -38,33 +38,25 @@ function App () {
   }, [deboundeFromText, fromLanguage, toLanguage])
 
   return (
-    <div className='container mx-auto px-4'>
-      <h1 className='text-2xl text-center my-8'>Google Translate Clone</h1>
-      <div className='flex items-start max-w-[600px] mx-auto'>
+    <div className='container mx-auto md:px-4 text-gray-600'>
+      <h1 className='text-2xl md:text-3xl text-center mt-12 text-indigo-500 font-bold'>
+        Google Translate Clone
+      </h1>
+      <div className='flex justify-center mt-4 gap-2'>
+        <ReactIcon />
+        <ChatgptIcon />
+        <TailwindcssIcon />
+      </div>
+      <div className='flex items-center max-w-[800px] mx-auto border-x border-t mt-8'>
         <div className='w-full'>
           <LanguageSelector
             type={SectionType.From}
             value={fromLanguage}
             onChange={setFromLanguage}
           />
-          <div className='relative'>
-            <TextArea
-              type={SectionType.From}
-              value={fromText}
-              onChange={setFromText}
-            />
-            <div className='absolute bottom-0'>
-              <Microphone onVoice={setFromText}/>
-              <Speakerphone
-                type={SectionType.From}
-                language={fromLanguage}
-                result={fromText}
-              />
-            </div>
-          </div>
-       </div>
+        </div>
         <button
-          className={`px-4 py-1 ${fromLanguage === AUTO_LANGUAGE ? 'opacity-50' : ''}`}
+          className={`p-4 mx-4 hover:bg-gray-200 rounded-full ${fromLanguage === AUTO_LANGUAGE ? 'opacity-50 hover:bg-transparent' : ''}`}
           disabled={fromLanguage === AUTO_LANGUAGE}
           onClick={() => {
             interchangeLanguage()
@@ -78,24 +70,48 @@ function App () {
             value={toLanguage}
             onChange={setToLanguage}
           />
-          <div className='relative'>
-            <TextArea
-              type={SectionType.To}
-              value={result}
-              onChange={setResult}
-              loading={loading}
-            />
-            <div className='absolute bottom-0'>
-              <Speakerphone
-                type={SectionType.To}
-                language={toLanguage}
-                result={result}
-              />
-              <Clipboard result={result}/>
-            </div>
-         </div>
         </div>
       </div>
+      <div className='flex flex-col md:flex-row max-w-[800px] mx-auto shadow-md'>
+        <div className='relative w-full'>
+          <TextArea
+            type={SectionType.From}
+            value={fromText}
+            onChange={setFromText}
+          />
+          <div className='absolute bottom-0 p-2'>
+            <Microphone onVoice={setFromText}/>
+            <Speakerphone
+              type={SectionType.From}
+              language={fromLanguage}
+              result={fromText}
+            />
+          </div>
+        </div>
+        <div className='relative w-full'>
+          <TextArea
+            type={SectionType.To}
+            value={result}
+            onChange={setResult}
+            loading={loading}
+          />
+          <div className='absolute bottom-0 p-2'>
+            <Speakerphone
+              type={SectionType.To}
+              language={toLanguage}
+              result={result}
+            />
+            <Clipboard result={result}/>
+          </div>
+        </div>
+      </div>
+      <footer className='text-center mt-8'>
+        Rene Huanca - {new Date().getFullYear()}
+      </footer>
+      <div className='fixed -top-20 -left-20 rotate-45 bg-gray-800 text-gray-50 w-[160px] h-[160px]'></div>
+      <a href="#" className='fixed top-3 left-3 hover:scale-125 transition-transform'>
+        <GithubIcon width={40} height={40} color={'#DDD'}/>
+      </a>
     </div>
   )
 }

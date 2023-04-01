@@ -9,7 +9,7 @@ const Clipboard = ({ result }: Props) => {
   }
   return (
     <button
-      className='p-2'
+      className='p-4 rounded-full hover:bg-gray-200'
       onClick={handleClipboard}
     >
       <ClipboardIcon />
