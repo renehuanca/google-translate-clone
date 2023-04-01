@@ -34,7 +34,7 @@ function App () {
         setResult(result)
         console.log(result)
       })
-      .catch(() => setResult(''))
+      .catch(() => setResult('Error in API'))
   }, [deboundeFromText, fromLanguage, toLanguage])
 
   return (
