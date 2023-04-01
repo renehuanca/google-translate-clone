@@ -29,7 +29,7 @@ export const TextArea = ({ type, loading, value, onChange }: Props) => {
     <textarea
       className={classes}
       cols={30}
-      rows={10}
+      rows={6}
       disabled={type === SectionType.To && loading === true}
       placeholder={getPlaceholder(type, loading)}
       autoFocus={type === SectionType.From}
