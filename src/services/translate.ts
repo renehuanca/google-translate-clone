@@ -2,7 +2,8 @@ import { ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from '
 import { SUPPORTED_LANGUAGES } from '../constants'
 import { type FromLanguage, type Language } from '../types'
 
-const apiKey = import.meta.env.APENAI_API_KEY
+// Danger your api key will show up on the client, do a backend
+const apiKey = import.meta.env.VITE_OPENAI_API_KEY
 
 const configuration = new Configuration({
   apiKey
