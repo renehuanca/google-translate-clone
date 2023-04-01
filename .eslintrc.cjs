@@ -22,6 +22,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-no-target-blank': 'off',
     '@typescript-eslint/no-confusing-void-expression': 'off',
-    '@typescript-eslint/triple-slash-reference': 'off'
+    '@typescript-eslint/triple-slash-reference': 'off',
+    'new-cap': 'off'
   }
 }
